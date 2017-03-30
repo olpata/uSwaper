@@ -39,13 +39,13 @@ public class CardModel : MonoBehaviour {
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        cardBack = App.Instance().getCardBack();
-        cardFace = App.Instance().getCardBack();
+        
     }
     // Use this for initialization
     void Start () {
-       
-      
+        cardBack = App.Instance().getCardBack();
+        cardFace = App.Instance().getCardBack();
+
     }
 	
 	// Update is called once per frame

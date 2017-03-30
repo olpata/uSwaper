@@ -6,6 +6,7 @@ public class App : MonoBehaviour {
 
     public GameObject card;
     public GameObject textHint;
+    public GameObject textAbout;
     public GameObject deck;
     public GameObject camera;
     CardModel cardModel;
@@ -16,10 +17,10 @@ public class App : MonoBehaviour {
     List<GameObject> winAnimations = new List<GameObject>();
     public List<Sprite> cardFaces;
     public Sprite cardBack;
-    public List<Sprite> spriteWinAnimations;
+    public List<GameObject> spriteWinAnimations;
     static App pInst;
     public static App Instance() { return pInst; }
-
+    int isAboutShown = 0;
     void Awake()
     {
         //called on appication init
@@ -50,6 +51,7 @@ public class App : MonoBehaviour {
             //cardModel.rectSizeX = screenX / 350.0f;
            // cardModel.rectSizeY = cardModel.rectSizeX;
         }
+        textAbout.transform.position = new Vector2(20, 20);
 
 
     }
@@ -64,9 +66,10 @@ public class App : MonoBehaviour {
     {
        return cardBack;
     }
-    public Sprite getWinAnimationSprite()
+    public GameObject getWinAnimationSprite()
     {
-        return spriteWinAnimations[0];
+        int thisId = Random.Range(0, spriteWinAnimations.Count);
+        return spriteWinAnimations[thisId];
     }
     string getquestionStr()
     {
@@ -93,15 +96,20 @@ public class App : MonoBehaviour {
     {
         foreach(GameObject thisObj in winAnimations)
         {
-            Destroy(thisObj);
+            //move out of scene
+
+
+            thisObj.transform.position = new  Vector2(20,20);
         }
         winAnimations.Clear();
     }
     void doWinAnimation()
     {
-        GameObject cardCopy = (GameObject)Instantiate(card);
-        winAnimations.Add(cardCopy);
-        cardCopy.GetComponent<CardModel>().setImg(new Vector3(5, 0, 0), new Vector2(5, 5), App.Instance().getWinAnimationSprite());
+        stopWinAnimation();
+        GameObject thisAnimation = App.Instance().getWinAnimationSprite();
+        thisAnimation.transform.position = new Vector2(3.2f, 1);
+        winAnimations.Add(thisAnimation);
+       
     }
     public void setWantAnswer(int _id)
     {
@@ -152,8 +160,27 @@ public class App : MonoBehaviour {
         {
             // cardViewScript.FlipDown();
             Debug.Log("About called.");
-            cardModel.ToggleFace(false);
-            cardFlipper.FlipCard(cardModel.cardFace, cardModel.cardBack, -1);
+            if (isAboutShown == 0)
+            {
+                isAboutShown = 1;
+                string sAbout =
+                "images" + System.Environment.NewLine +
+                "Author: Visualpharm site: http://all-free-download.com  link: http://all-free-download.com/free-icon/download/" + System.Environment.NewLine + "animals -icons-icons-pack_120701.html" + System.Environment.NewLine +
+                "Author: Iconshock - icon sets site: http://all-free-download.com  link: http://all-free-download.com/free-icon/download/" + System.Environment.NewLine + "super-vista-animals-icons-pack_120923.html" + System.Environment.NewLine +
+                "animation" + System.Environment.NewLine +
+                "Author: ily4everbang site: photobucket.com link: http://media.photobucket.com/user/ily4everbang/media/FUNNY%20CUTE%20GIFS/" + System.Environment.NewLine + "21.gif.html?filters[term]=dancing%20panda&filters[primary] = images & filters[secondary] = videos & sort = 1 & o = 9" + System.Environment.NewLine +
+                 "Author: ly4everbang site: photobucket.com link: http://media.photobucket.com/user/turbo73_photos/media/dancing.gif.html?" + System.Environment.NewLine + "filters[term]=dancing%20panda&filters[primary]= images & filters[secondary] = videos & sort = 1 & o = 13" + System.Environment.NewLine
+                 ;
+
+                textAbout.GetComponent<TextMesh>().text = sAbout;
+                textAbout.transform.position = new Vector2(-6, -1);
+            }
+            else
+            {
+                isAboutShown = 0;
+                textAbout.transform.position = new Vector2(20, 20);
+
+            }
         }
         if (GUILayout.Button("Exit"))
         {
