@@ -8,11 +8,13 @@ public class CameraModel : MonoBehaviour {
     // Use this for initialization
    
     void Start () {
-        Camera thisCamera = GetComponent<Camera>();
+       /* Camera thisCamera = GetComponent<Camera>();
         Camera.main.projectionMatrix = Matrix4x4.Ortho(
                -orthographicSize * aspect, orthographicSize * aspect,
                -orthographicSize, orthographicSize,
                thisCamera.nearClipPlane, thisCamera.farClipPlane);
+               */
+               
     }
     
    
