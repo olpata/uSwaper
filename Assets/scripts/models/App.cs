@@ -73,7 +73,8 @@ public class App : MonoBehaviour {
     }
     string getquestionStr()
     {
-        return "Где " + globalVars.cardInfos[wantAnswerId].name + " ?";
+//        return "Где " + globalVars.cardInfos[wantAnswerId].name + " ?";
+        return "Where is " + globalVars.cardInfos[wantAnswerId].name + " ?";
     }
     public void tryAnswer(int _id)
     {
@@ -82,12 +83,14 @@ public class App : MonoBehaviour {
 
         if (wantAnswerId == globalVars.cardInfos[_id].id)
         {
-            textHintArea.text = "Правильно. Давай снова.";
+//            textHintArea.text = "Правильно. Давай снова.";
+            textHintArea.text = "Good job. Let's play again.";
             doWinAnimation();
         }
         else
         {
-            textHintArea.text = "Не не не."+ getquestionStr();
+//            textHintArea.text = "Не не не." + getquestionStr();
+            textHintArea.text = "No no no." + getquestionStr();
 
         }
 
@@ -107,7 +110,9 @@ public class App : MonoBehaviour {
     {
         stopWinAnimation();
         GameObject thisAnimation = App.Instance().getWinAnimationSprite();
-        thisAnimation.transform.position = new Vector2(3.2f, 1);
+//        thisAnimation.transform.position = new Vector2(3.2f, 1);
+        thisAnimation.transform.position = new Vector2(-2.5f, 2);
+
         winAnimations.Add(thisAnimation);
        
     }
@@ -141,6 +146,7 @@ public class App : MonoBehaviour {
    
     void OnGUI()
     {
+        /*
         //add gui to scene
         GUI.BeginGroup(new Rect(10, 10, 150, 500));
 
@@ -188,6 +194,7 @@ public class App : MonoBehaviour {
         }
 
         GUI.EndGroup();
+        */
     }
 
 

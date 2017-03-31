@@ -10,17 +10,17 @@ public class globalVars : MonoBehaviour {
   
     public static List<CardInfo> cardInfos = new List<CardInfo>
     {
-        new CardInfo("обезьяна","Assets/resources/cardFaces/card_0.png",0)
-        ,new CardInfo("собака","Assets/resources/cardFaces/card_1.png",1)
-        ,new CardInfo("тигр","Assets/resources/cardFaces/card_2.png",2)
-        ,new CardInfo("зебра","Assets/resources/cardFaces/card_3.png",3)
-        ,new CardInfo("бабочка","Assets/resources/cardFaces/card_4.png",4)
-        ,new CardInfo("дельфин","Assets/resources/cardFaces/card_5.png",5)
-        ,new CardInfo("слон","Assets/resources/cardFaces/card_6.png",6)
-        ,new CardInfo("бегемот","Assets/resources/cardFaces/card_7.png",7)
-        ,new CardInfo("панда","Assets/resources/cardFaces/card_8.png",8)
-        ,new CardInfo("попугай","Assets/resources/cardFaces/card_9.png",9)
-        ,new CardInfo("черепаха","Assets/resources/cardFaces/card_10.png",10)
+        new CardInfo("monkey","Assets/resources/cardFaces/card_0.png",0)
+        ,new CardInfo("dog","Assets/resources/cardFaces/card_1.png",1)
+        ,new CardInfo("tiger","Assets/resources/cardFaces/card_2.png",2)
+        ,new CardInfo("zebra","Assets/resources/cardFaces/card_3.png",3)
+        ,new CardInfo("batterfly","Assets/resources/cardFaces/card_4.png",4)
+        ,new CardInfo("dolphin","Assets/resources/cardFaces/card_5.png",5)
+        ,new CardInfo("elefant","Assets/resources/cardFaces/card_6.png",6)
+        ,new CardInfo("hippo","Assets/resources/cardFaces/card_7.png",7)
+        ,new CardInfo("panda","Assets/resources/cardFaces/card_8.png",8)
+        ,new CardInfo("parrot","Assets/resources/cardFaces/card_9.png",9)
+        ,new CardInfo("turtle","Assets/resources/cardFaces/card_10.png",10)
     };
     public static int cardFacesCount = cardInfos.Count;
     public static string cardBackSprite = "Assets/resources/cardBack_2.png";
