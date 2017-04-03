@@ -9,6 +9,8 @@ public class App : MonoBehaviour {
     public GameObject textAbout;
     public GameObject deck;
     public GameObject camera;
+
+    BoxCollider2D collider;
     CardModel cardModel;
     CardFlipper cardFlipper;
     TextMesh textHintArea;
@@ -19,12 +21,14 @@ public class App : MonoBehaviour {
     public Sprite cardBack;
     public List<GameObject> spriteWinAnimations;
     static App pInst;
-    public static App Instance() { return pInst; }
+    public static App Instance() { if (pInst == null) pInst = new App(); return pInst; }
     int isAboutShown = 0;
+    int isEndGameState;
     void Awake()
     {
         //called on appication init
         pInst = this;
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     // Use this for initialization
@@ -35,7 +39,9 @@ public class App : MonoBehaviour {
         cardModel = card.GetComponent<CardModel>();
         cardFlipper = card.GetComponent<CardFlipper>();
         textHintArea = textHint.GetComponent<TextMesh>();
-
+        collider = GetComponent<BoxCollider2D>();
+        isEndGameState = 0;
+        collider.size = new Vector2(0, 0);
         Camera sceneCamObj = camera.GetComponent<Camera>();
         //GameObject sceneCamObj = GameObject.Find("SceneCamera");
         if (sceneCamObj != null)
@@ -73,8 +79,7 @@ public class App : MonoBehaviour {
     }
     string getquestionStr()
     {
-//        return "Где " + globalVars.cardInfos[wantAnswerId].name + " ?";
-        return "Where is " + globalVars.cardInfos[wantAnswerId].name + " ?";
+        return globalVars.getAskString() + globalVars.getObjectName(wantAnswerId) + " ?";
     }
     public void tryAnswer(int _id)
     {
@@ -83,14 +88,16 @@ public class App : MonoBehaviour {
 
         if (wantAnswerId == globalVars.cardInfos[_id].id)
         {
-//            textHintArea.text = "Правильно. Давай снова.";
-            textHintArea.text = "Good job. Let's play again.";
+            textHintArea.text = globalVars.getSuccessString();
             doWinAnimation();
+
+            isEndGameState = 1;
+            collider.size = new Vector2(100, 100);
+
         }
         else
         {
-//            textHintArea.text = "Не не не." + getquestionStr();
-            textHintArea.text = "No no no." + getquestionStr();
+            textHintArea.text = globalVars.getFailString() + getquestionStr();
 
         }
 
@@ -143,7 +150,30 @@ public class App : MonoBehaviour {
     }
     */
 
-   
+    private void doStartNewGame()
+    {
+        isEndGameState = 0;
+        collider.size = new Vector2(0, 0);
+        stopWinAnimation();
+
+        DeckModel thisDeckModel = deck.GetComponent<DeckModel>();
+        DeckView thisDeckView = deck.GetComponent<DeckView>();
+        thisDeckModel.Shuffle();
+        thisDeckView.ShowCards();
+
+
+    }
+    private void OnMouseDown()
+    {
+        long a = 1;
+
+        if (isEndGameState > 0)
+        {
+            doStartNewGame();
+
+        }
+    }
+
     void OnGUI()
     {
         /*
@@ -162,32 +192,7 @@ public class App : MonoBehaviour {
 
         }
 
-        if (GUILayout.Button("About"))
-        {
-            // cardViewScript.FlipDown();
-            Debug.Log("About called.");
-            if (isAboutShown == 0)
-            {
-                isAboutShown = 1;
-                string sAbout =
-                "images" + System.Environment.NewLine +
-                "Author: Visualpharm site: http://all-free-download.com  link: http://all-free-download.com/free-icon/download/" + System.Environment.NewLine + "animals -icons-icons-pack_120701.html" + System.Environment.NewLine +
-                "Author: Iconshock - icon sets site: http://all-free-download.com  link: http://all-free-download.com/free-icon/download/" + System.Environment.NewLine + "super-vista-animals-icons-pack_120923.html" + System.Environment.NewLine +
-                "animation" + System.Environment.NewLine +
-                "Author: ily4everbang site: photobucket.com link: http://media.photobucket.com/user/ily4everbang/media/FUNNY%20CUTE%20GIFS/" + System.Environment.NewLine + "21.gif.html?filters[term]=dancing%20panda&filters[primary] = images & filters[secondary] = videos & sort = 1 & o = 9" + System.Environment.NewLine +
-                 "Author: ly4everbang site: photobucket.com link: http://media.photobucket.com/user/turbo73_photos/media/dancing.gif.html?" + System.Environment.NewLine + "filters[term]=dancing%20panda&filters[primary]= images & filters[secondary] = videos & sort = 1 & o = 13" + System.Environment.NewLine
-                 ;
-
-                textAbout.GetComponent<TextMesh>().text = sAbout;
-                textAbout.transform.position = new Vector2(-6, -1);
-            }
-            else
-            {
-                isAboutShown = 0;
-                textAbout.transform.position = new Vector2(20, 20);
-
-            }
-        }
+      
         if (GUILayout.Button("Exit"))
         {
             Application.Quit();
@@ -200,6 +205,6 @@ public class App : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+
+    }
 }
