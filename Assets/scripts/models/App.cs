@@ -83,7 +83,7 @@ public class App : MonoBehaviour {
     }
     public void tryAnswer(int _id)
     {
-        Debug.Log("onTryAnswer called.");
+        Debug.Log("onTryAnswer called.  "+_id);
 
 
         if (wantAnswerId == globalVars.cardInfos[_id].id)

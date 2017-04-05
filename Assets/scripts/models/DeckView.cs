@@ -55,9 +55,11 @@ public class DeckView : MonoBehaviour {
                     App.Instance().setWantAnswer(cardFaceId);
 
             }
-            cardModel.setCardId(cardFaceId);
 
-            cardModel.ToggleFace(true);
+            Vector2 cardLocalScaleToUse = new Vector2(3.5f, 3.5f);
+            cardCopy.transform.localScale = cardLocalScaleToUse;
+            cardModel.setImg(temp, new Vector2(1, 1), App.Instance().getCardFace(cardFaceId));
+            cardModel.cardIndex = cardFaceId;
             //get cardModelSize:
 
 

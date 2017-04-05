@@ -54,7 +54,7 @@ public class CardModel : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        Debug.Log("click on card id = " + cardIndex);
+       // Debug.Log("click on card id = " + cardIndex);
 
 
         if (App.Instance() != null)
@@ -83,11 +83,21 @@ public class CardModel : MonoBehaviour {
     {
         cardFace = _img;
         spriteRenderer.sprite = cardFace;
+     
         Vector2 beforeSize = _size;
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
         Vector3 scaleMultiplier = new Vector3(beforeSize.x / spriteSize.x, beforeSize.y / spriteSize.y);
-        spriteRenderer.transform.localScale = new Vector3(spriteRenderer.transform.localScale.x * scaleMultiplier.x, spriteRenderer.transform.localScale.y * scaleMultiplier.y);
-        spriteRenderer.transform.position = _pos;
+        if (scaleMultiplier.x < scaleMultiplier.y)
+            scaleMultiplier.y = scaleMultiplier.x;
+        else
+            scaleMultiplier.x = scaleMultiplier.y;
+
+        //spriteRenderer.transform.localScale = new Vector3(spriteRenderer.transform.localScale.x * scaleMultiplier.x, spriteRenderer.transform.localScale.y * scaleMultiplier.y);
+        //spriteRenderer.transform.position = _pos;
+        this.transform.localScale = new Vector3(spriteRenderer.transform.localScale.x * scaleMultiplier.x, spriteRenderer.transform.localScale.y * scaleMultiplier.y);
+        this.transform.position = _pos;
+
+
     }
 }
 

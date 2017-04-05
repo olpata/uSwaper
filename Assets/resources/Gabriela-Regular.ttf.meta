@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bcd9870ad5a63a1499181f782dc509f3
-timeCreated: 1491235371
+guid: c0b50b441f0cf7b4d978e679020900b3
+timeCreated: 1491401267
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -9,9 +9,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: WebLetterer BB
+  fontName: Gabriela
   fontNames:
-  - WebLetterer BB
+  - Gabriela
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
