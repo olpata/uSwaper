@@ -42,7 +42,7 @@ public class DeckView : MonoBehaviour {
             CardModel cardModel = cardCopy.GetComponent<CardModel>();
             float offsetX = cardOfset_x* cardModel.rectSizeX * cardCount_x;
             float offsetY = cardOfset_y * cardModel.rectSizeY * cardCount_y;
-            float zlevel = 0.01f * cardCount;
+            float zlevel = 0.01f * cardCount+ 0.01f;
 
             Vector3 temp = startPos + new Vector3(offsetX, -offsetY, zlevel);
             cardCopy.transform.position = temp;

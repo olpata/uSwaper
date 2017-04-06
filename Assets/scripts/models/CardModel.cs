@@ -91,11 +91,15 @@ public class CardModel : MonoBehaviour {
             scaleMultiplier.y = scaleMultiplier.x;
         else
             scaleMultiplier.x = scaleMultiplier.y;
-
+        Vector2 wantSize;
+        wantSize.x =  beforeSize.x / scaleMultiplier.x ;
+        wantSize.y = beforeSize.y / scaleMultiplier.y;
         //spriteRenderer.transform.localScale = new Vector3(spriteRenderer.transform.localScale.x * scaleMultiplier.x, spriteRenderer.transform.localScale.y * scaleMultiplier.y);
         //spriteRenderer.transform.position = _pos;
         this.transform.localScale = new Vector3(spriteRenderer.transform.localScale.x * scaleMultiplier.x, spriteRenderer.transform.localScale.y * scaleMultiplier.y);
         this.transform.position = _pos;
+
+        this.GetComponent<BoxCollider2D>().size = wantSize;
 
 
     }

@@ -166,7 +166,7 @@ public class App : MonoBehaviour {
     private void OnMouseDown()
     {
         long a = 1;
-
+        Debug.Log("OnMouseDown - on bg ");
         if (isEndGameState > 0)
         {
             doStartNewGame();
