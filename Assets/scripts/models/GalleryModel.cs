@@ -70,10 +70,12 @@ public class GalleryModel : MonoBehaviour {
             if (_swipeVector.x > 0)  //If the movement was to the right)
             {   //Right swipe
                 Debug.Log("Right Swipe");
+                goToPrevImg();
             }
             else
             {   //Left swipe
                 Debug.Log("Left Swipe");
+                goToNextImg();
             }
         }
         else
@@ -99,21 +101,39 @@ public class GalleryModel : MonoBehaviour {
 
         //else if (touch.phase == TouchPhase.Ended) { }
         //else if (Input.GetMouseButtonUp()) { }
+        if (Input.GetMouseButtonUp(0)) {
+            long a = 2;
+        }
+
+        bool isDragActivity = (Input.touchCount > 0) || (Input.GetMouseButtonDown(0)) || (Input.GetMouseButtonUp(0));
 
 
-        if (Input.touchCount > 0)
+
+
+        if (isDragActivity)
         {
-            Debug.Log("touchCount event");
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            bool isDragSart = (Input.GetMouseButtonDown(0));
+            bool isDragEnd = (Input.GetMouseButtonUp(0));
+            Vector2 touchPos = Input.mousePosition;
+            if (Input.touchCount > 0)
             {
-                swipeStartPos = touch.position;
-                swipeEndPos = touch.position;
+                Touch touch = Input.GetTouch(0);
+                isDragSart = (touch.phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0));
+                isDragEnd = (touch.phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0));
+                touchPos = touch.position;
+            }
+          
+            if (isDragSart)
+            {
+                Debug.Log("touch Start event");
+                swipeStartPos = touchPos;
+                swipeEndPos = touchPos;
                 swipeStartTime = Time.time;
             }
-            else if (touch.phase == TouchPhase.Ended)
+            else if (isDragEnd)
             {
-                swipeEndPos = touch.position;
+                Debug.Log("touch End event");
+                swipeEndPos = touchPos;
                 swipeEndTime = Time.time;
                 float swipeDist = (swipeEndPos - swipeStartPos).magnitude;
                 float swipeTime = swipeEndTime - swipeStartTime;
@@ -126,7 +146,7 @@ public class GalleryModel : MonoBehaviour {
                 }
                 else
                 {
-                    swipeEndPos = touch.position;
+                    swipeEndPos = touchPos;
                     swipeEndTime = Time.time;
                 }
             }

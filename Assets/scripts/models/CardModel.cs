@@ -50,7 +50,17 @@ public class CardModel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    
+
+        bool isDragActivity = (Input.touchCount > 0) || (Input.GetMouseButtonDown(0)) || (Input.GetMouseButtonUp(0));
+
+        if (isDragActivity)
+        {
+            //do as press
+          //  if (App.Instance() != null)
+          //      App.Instance().tryAnswer(cardIndex);
+        }
+
+
     }
     void OnMouseDown()
     {
@@ -63,7 +73,15 @@ public class CardModel : MonoBehaviour {
 
     //ToggleFace(false);
 
-}
+    }
+    void OnMouseEnter()
+    {
+        if (Input.GetMouseButton(0) )
+        {
+            if (App.Instance() != null)
+                App.Instance().tryAnswer(cardIndex);
+        }
+    }
     public void setCardId(int _id)
     {
 

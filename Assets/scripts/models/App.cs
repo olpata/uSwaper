@@ -16,6 +16,7 @@ public class App : MonoBehaviour {
     TextMesh textHintArea;
     int cardIndex = 0;
     int wantAnswerId = 0;
+    int wantAnswerPosId = 0;
     List<GameObject> winAnimations = new List<GameObject>();
     public List<Sprite> cardFaces;
     public Sprite cardBack;
@@ -123,10 +124,11 @@ public class App : MonoBehaviour {
         winAnimations.Add(thisAnimation);
        
     }
-    public void setWantAnswer(int _id)
+    public void setWantAnswer(int _id,int _posId)
     {
         Debug.Log("setWantAnswer called.");
         wantAnswerId = globalVars.cardInfos[_id].id;
+        wantAnswerPosId = _posId;
         textHintArea.text = getquestionStr();
 
 
@@ -150,7 +152,7 @@ public class App : MonoBehaviour {
     }
     */
 
-    private void doStartNewGame()
+    private void doStartNewGame(int _invalidWantPosID)
     {
         isEndGameState = 0;
         collider.size = new Vector2(0, 0);
@@ -159,7 +161,7 @@ public class App : MonoBehaviour {
         DeckModel thisDeckModel = deck.GetComponent<DeckModel>();
         DeckView thisDeckView = deck.GetComponent<DeckView>();
         thisDeckModel.Shuffle();
-        thisDeckView.ShowCards();
+        thisDeckView.ShowCards(_invalidWantPosID);
 
 
     }
@@ -169,13 +171,16 @@ public class App : MonoBehaviour {
         Debug.Log("OnMouseDown - on bg ");
         if (isEndGameState > 0)
         {
-            doStartNewGame();
+            doStartNewGame(wantAnswerPosId);
 
         }
     }
 
     void OnGUI()
     {
+
+      
+
         /*
         //add gui to scene
         GUI.BeginGroup(new Rect(10, 10, 150, 500));

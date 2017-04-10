@@ -19,9 +19,9 @@ public class DeckView : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         deckModel = GetComponent<DeckModel>();
-        ShowCards();
+        ShowCards(0);
 	}
-    public void ShowCards()
+    public void ShowCards(int _invalidWantPosID)
     {
         if (cards.Count > 0)
         {
@@ -35,6 +35,10 @@ public class DeckView : MonoBehaviour {
         int cardCount_y = 0;
         int cardCount = 0;
         int rightAnswerPos = Random.Range(0, deckModel.elemCount);
+        while (rightAnswerPos == _invalidWantPosID && deckModel.elemCount > 2)
+        {
+            rightAnswerPos = Random.Range(0, deckModel.elemCount);
+        }
         foreach (int i in deckModel.GetCards())
         {
             GameObject cardCopy = (GameObject)Instantiate(cardPrefab);
@@ -52,7 +56,7 @@ public class DeckView : MonoBehaviour {
             if (cardCount == rightAnswerPos)
             {
                 if (App.Instance() != null)
-                    App.Instance().setWantAnswer(cardFaceId);
+                    App.Instance().setWantAnswer(cardFaceId, rightAnswerPos);
 
             }
 
